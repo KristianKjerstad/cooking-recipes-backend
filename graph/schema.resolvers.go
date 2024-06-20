@@ -8,23 +8,47 @@ import (
 	"context"
 	"cooking-recipes-backend/database"
 	"cooking-recipes-backend/graph/model"
+	"fmt"
 )
 
-var db = database.Connect()
-
-// CreateDog is the resolver for the createDog field.
-func (r *mutationResolver) CreateDog(ctx context.Context, input *model.NewDog) (*model.Dog, error) {
-	return db.Save(input), nil
+// CreateRecipe is the resolver for the createRecipe field.
+func (r *mutationResolver) CreateRecipe(ctx context.Context, input *model.NewRecipeInput) (*model.Recipe, error) {
+	panic(fmt.Errorf("not implemented: CreateRecipe - createRecipe"))
 }
 
-// Dog is the resolver for the dog field.
-func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
-	return db.FindByID(id), nil
+// UpdateRecipe is the resolver for the updateRecipe field.
+func (r *mutationResolver) UpdateRecipe(ctx context.Context, input *model.UpdateRecipeInput) (*model.Recipe, error) {
+	panic(fmt.Errorf("not implemented: UpdateRecipe - updateRecipe"))
 }
 
-// Dogs is the resolver for the dogs field.
-func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
-	return db.All(), nil
+// DeleteRecipe is the resolver for the deleteRecipe field.
+func (r *mutationResolver) DeleteRecipe(ctx context.Context, id string) (*bool, error) {
+	panic(fmt.Errorf("not implemented: DeleteRecipe - deleteRecipe"))
+}
+
+// AddIngredient is the resolver for the addIngredient field.
+func (r *mutationResolver) AddIngredient(ctx context.Context, recipeID string, ingredient *model.NewIngredientInput) (*model.Recipe, error) {
+	panic(fmt.Errorf("not implemented: AddIngredient - addIngredient"))
+}
+
+// UpdateIngredient is the resolver for the updateIngredient field.
+func (r *mutationResolver) UpdateIngredient(ctx context.Context, recipeID string, ingredient *model.UpdateIngredientInput) (*model.Recipe, error) {
+	panic(fmt.Errorf("not implemented: UpdateIngredient - updateIngredient"))
+}
+
+// DeleteIngredient is the resolver for the deleteIngredient field.
+func (r *mutationResolver) DeleteIngredient(ctx context.Context, recipeID string, ingredientID string) (*model.Recipe, error) {
+	panic(fmt.Errorf("not implemented: DeleteIngredient - deleteIngredient"))
+}
+
+// Recipe is the resolver for the recipe field.
+func (r *queryResolver) Recipe(ctx context.Context, id *string, name *string) (*model.Recipe, error) {
+	panic(fmt.Errorf("not implemented: Recipe - recipe"))
+}
+
+// Recipes is the resolver for the recipes field.
+func (r *queryResolver) Recipes(ctx context.Context) ([]*model.Recipe, error) {
+	panic(fmt.Errorf("not implemented: Recipes - recipes"))
 }
 
 // Mutation returns MutationResolver implementation.
@@ -35,3 +59,21 @@ func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//   - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//     it when you're done.
+//   - You have helper methods in this file. Move them out to keep these resolver files clean.
+var db = database.Connect()
+
+func (r *mutationResolver) CreateDog(ctx context.Context, input *model.NewDog) (*model.Dog, error) {
+	return db.Save(input), nil
+}
+func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
+	return db.FindByID(id), nil
+}
+func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
+	return db.All(), nil
+}

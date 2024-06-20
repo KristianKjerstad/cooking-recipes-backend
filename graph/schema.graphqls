@@ -4,16 +4,77 @@ type Dog {
  isGoodBoi: Boolean!
 }
 
-type Query {
-dog(_id: String!): Dog! 
-dogs: [Dog!]!
-}
 
 input NewDog {
 name: String! 
 isGoodBoi: Boolean!
 }
 
+
+
+enum Category {
+  DRINK
+  MAIN_COURSE
+  DESSERT
+  APPETIZER
+}
+
+type Ingredient {
+  _id: String!
+  name: String!
+  quantity: Float!
+  unit: String!
+}
+
+input NewIngredientInput {
+  name: String!
+  quantity: Float!
+  unit: String!
+}
+
+input UpdateIngredientInput {
+  _id: String!
+  name: String
+  quantity: Float
+  unit: String
+}
+
+type Recipe {
+  _id: String!
+  name: String!
+  description: String
+  category: Category!
+  steps: [String]!
+  ingredients: [Ingredient]!
+}
+
+input NewRecipeInput {
+  name: String!
+  description: String
+  category: Category!
+  steps: [String]!
+  ingredients: [NewIngredientInput]!
+}
+
+input UpdateRecipeInput {
+  _id: String!
+  name: String
+  description: String
+  category: Category
+  steps: [String]
+  ingredients: [UpdateIngredientInput]
+}
+
 type Mutation {
-createDog(input: NewDog): Dog!
+  createRecipe(input: NewRecipeInput): Recipe!
+  updateRecipe(input: UpdateRecipeInput): Recipe!
+  deleteRecipe(_id: String!): Boolean
+  addIngredient(recipeId: String!, ingredient: NewIngredientInput): Recipe!
+  updateIngredient(recipeId: String!, ingredient: UpdateIngredientInput): Recipe!
+  deleteIngredient(recipeId: String!, ingredientId: String!): Recipe!
+}
+
+type Query {
+  recipe(_id: String, name: String): Recipe
+  recipes: [Recipe!]!
 }

@@ -2,10 +2,23 @@
 
 package model
 
+import (
+	"fmt"
+	"io"
+	"strconv"
+)
+
 type Dog struct {
-	ID        string `json:"_id" bson:"_id"`
+	ID        string `json:"_id"`
 	Name      string `json:"name"`
 	IsGoodBoi bool   `json:"isGoodBoi"`
+}
+
+type Ingredient struct {
+	ID       string  `json:"_id"`
+	Name     string  `json:"name"`
+	Quantity float64 `json:"quantity"`
+	Unit     string  `json:"unit"`
 }
 
 type Mutation struct {
@@ -16,5 +29,89 @@ type NewDog struct {
 	IsGoodBoi bool   `json:"isGoodBoi"`
 }
 
+type NewIngredientInput struct {
+	Name     string  `json:"name"`
+	Quantity float64 `json:"quantity"`
+	Unit     string  `json:"unit"`
+}
+
+type NewRecipeInput struct {
+	Name        string                `json:"name"`
+	Description *string               `json:"description,omitempty"`
+	Category    Category              `json:"category"`
+	Steps       []*string             `json:"steps"`
+	Ingredients []*NewIngredientInput `json:"ingredients"`
+}
+
 type Query struct {
+}
+
+type Recipe struct {
+	ID          string        `json:"_id"`
+	Name        string        `json:"name"`
+	Description *string       `json:"description,omitempty"`
+	Category    Category      `json:"category"`
+	Steps       []*string     `json:"steps"`
+	Ingredients []*Ingredient `json:"ingredients"`
+}
+
+type UpdateIngredientInput struct {
+	ID       string   `json:"_id"`
+	Name     *string  `json:"name,omitempty"`
+	Quantity *float64 `json:"quantity,omitempty"`
+	Unit     *string  `json:"unit,omitempty"`
+}
+
+type UpdateRecipeInput struct {
+	ID          string                   `json:"_id"`
+	Name        *string                  `json:"name,omitempty"`
+	Description *string                  `json:"description,omitempty"`
+	Category    *Category                `json:"category,omitempty"`
+	Steps       []*string                `json:"steps,omitempty"`
+	Ingredients []*UpdateIngredientInput `json:"ingredients,omitempty"`
+}
+
+type Category string
+
+const (
+	CategoryDrink      Category = "DRINK"
+	CategoryMainCourse Category = "MAIN_COURSE"
+	CategoryDessert    Category = "DESSERT"
+	CategoryAppetizer  Category = "APPETIZER"
+)
+
+var AllCategory = []Category{
+	CategoryDrink,
+	CategoryMainCourse,
+	CategoryDessert,
+	CategoryAppetizer,
+}
+
+func (e Category) IsValid() bool {
+	switch e {
+	case CategoryDrink, CategoryMainCourse, CategoryDessert, CategoryAppetizer:
+		return true
+	}
+	return false
+}
+
+func (e Category) String() string {
+	return string(e)
+}
+
+func (e *Category) UnmarshalGQL(v interface{}) error {
+	str, ok := v.(string)
+	if !ok {
+		return fmt.Errorf("enums must be strings")
+	}
+
+	*e = Category(str)
+	if !e.IsValid() {
+		return fmt.Errorf("%s is not a valid Category", str)
+	}
+	return nil
+}
+
+func (e Category) MarshalGQL(w io.Writer) {
+	fmt.Fprint(w, strconv.Quote(e.String()))
 }
