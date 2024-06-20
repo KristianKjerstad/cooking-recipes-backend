@@ -28,7 +28,7 @@ func Connect() *DB {
 	return &DB{client: client, recipeCollection: recipeCollection}
 }
 
-func (db *DB) Save(input *model.NewDog) *model.Dog {
+func (db *DB) SaveRecipe(input *model.NewRecipeInput) *model.Recipe {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -36,10 +36,23 @@ func (db *DB) Save(input *model.NewDog) *model.Dog {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return &model.Dog{
-		ID:        res.InsertedID.(primitive.ObjectID).Hex(),
-		Name:      input.Name,
-		IsGoodBoi: input.IsGoodBoi,
+
+	ingredients := make([]*model.Ingredient, len(input.Ingredients))
+	for i, ing := range input.Ingredients {
+		ingredients[i] = &model.Ingredient{
+			Name:     ing.Name,
+			Unit:     ing.Unit,
+			Quantity: ing.Quantity,
+		}
+	}
+
+	return &model.Recipe{
+		ID:          res.InsertedID.(primitive.ObjectID).Hex(),
+		Name:        input.Name,
+		Description: input.Description,
+		Category:    input.Category,
+		Steps:       input.Steps,
+		Ingredients: ingredients,
 	}
 }
 

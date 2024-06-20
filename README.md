@@ -38,6 +38,19 @@ query getDog {
     isGoodBoi
   }
 }
+
+
+mutation CreateRecipe{
+  createRecipe(input:{
+    name: "vodka redbull",
+    description:"a drink",
+    category:DRINK,
+    steps: ["get ingredients", "make"],
+    ingredients:[{name:"vodka", quantity:20, unit:"ml"},{name:"redbull", quantity:20, unit:"ml"}]
+  }) {
+    _id
+  }
+}
 ```
 
 

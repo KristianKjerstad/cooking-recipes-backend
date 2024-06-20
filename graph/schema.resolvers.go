@@ -13,9 +13,9 @@ import (
 
 var db = database.Connect()
 
-func (r *mutationResolver) CreateDog(ctx context.Context, input *model.NewDog) (*model.Dog, error) {
-	return db.Save(input), nil
-}
+//	func (r *mutationResolver) CreateDog(ctx context.Context, input *model.New) (*model.Dog, error) {
+//		return db.SaveRecipe(input), nil
+//	}
 func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
 	return db.FindByID(id), nil
 }
@@ -25,7 +25,7 @@ func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
 
 // CreateRecipe is the resolver for the createRecipe field.
 func (r *mutationResolver) CreateRecipe(ctx context.Context, input *model.NewRecipeInput) (*model.Recipe, error) {
-	panic(fmt.Errorf("not implemented: CreateRecipe - createRecipe"))
+	return db.SaveRecipe(input), nil
 }
 
 // UpdateRecipe is the resolver for the updateRecipe field.
