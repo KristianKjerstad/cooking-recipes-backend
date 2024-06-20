@@ -64,8 +64,24 @@ func (db *DB) FindRecipeByID(ID string) *model.Recipe {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	res := db.recipeCollection.FindOne(ctx, bson.M{"_id": ObjectID})
-
+	if res.Err() != nil {
+		return nil
+	}
 	recipe := model.Recipe{}
+	res.Decode(&recipe)
+
+	return &recipe
+}
+
+func (db *DB) FindRecipeByName(name string) *model.Recipe {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	res := db.recipeCollection.FindOne(ctx, bson.M{"name": name})
+	if res.Err() != nil {
+		return nil
+	}
+	recipe := model.Recipe{}
+
 	res.Decode(&recipe)
 
 	return &recipe

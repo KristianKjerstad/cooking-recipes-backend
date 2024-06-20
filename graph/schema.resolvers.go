@@ -13,17 +13,6 @@ import (
 
 var db = database.Connect()
 
-//	func (r *mutationResolver) CreateDog(ctx context.Context, input *model.New) (*model.Dog, error) {
-//		return db.SaveRecipe(input), nil
-//	}
-//
-//	func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
-//		return db.FindByID(id), nil
-//	}
-// func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
-// 	return db.All(), nil
-// }
-
 // CreateRecipe is the resolver for the createRecipe field.
 func (r *mutationResolver) CreateRecipe(ctx context.Context, input *model.NewRecipeInput) (*model.Recipe, error) {
 	return db.SaveRecipe(input), nil
@@ -56,8 +45,22 @@ func (r *mutationResolver) DeleteIngredient(ctx context.Context, recipeID string
 
 // Recipe is the resolver for the recipe field.
 func (r *queryResolver) Recipe(ctx context.Context, id *string, name *string) (*model.Recipe, error) {
-	return db.FindRecipeByID(*id), nil
-	panic(fmt.Errorf("not implemented: Recipe - recipe"))
+	if id != nil && name == nil {
+		recipe := db.FindRecipeByID(*id)
+		if recipe != nil {
+			return recipe, nil
+		}
+
+	} else if name != nil && id == nil {
+		recipe := db.FindRecipeByName(*name)
+		if recipe != nil {
+
+			return recipe, nil
+		}
+	}
+	fmt.Errorf("Both name and id were nil!")
+	return nil, nil
+
 }
 
 // Recipes is the resolver for the recipes field.
