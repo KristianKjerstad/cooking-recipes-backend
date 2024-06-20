@@ -16,12 +16,13 @@ var db = database.Connect()
 //	func (r *mutationResolver) CreateDog(ctx context.Context, input *model.New) (*model.Dog, error) {
 //		return db.SaveRecipe(input), nil
 //	}
-func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
-	return db.FindByID(id), nil
-}
-func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
-	return db.All(), nil
-}
+//
+//	func (r *queryResolver) Dog(ctx context.Context, id string) (*model.Dog, error) {
+//		return db.FindByID(id), nil
+//	}
+// func (r *queryResolver) Dogs(ctx context.Context) ([]*model.Dog, error) {
+// 	return db.All(), nil
+// }
 
 // CreateRecipe is the resolver for the createRecipe field.
 func (r *mutationResolver) CreateRecipe(ctx context.Context, input *model.NewRecipeInput) (*model.Recipe, error) {
@@ -55,12 +56,13 @@ func (r *mutationResolver) DeleteIngredient(ctx context.Context, recipeID string
 
 // Recipe is the resolver for the recipe field.
 func (r *queryResolver) Recipe(ctx context.Context, id *string, name *string) (*model.Recipe, error) {
+	return db.FindRecipeByID(*id), nil
 	panic(fmt.Errorf("not implemented: Recipe - recipe"))
 }
 
 // Recipes is the resolver for the recipes field.
 func (r *queryResolver) Recipes(ctx context.Context) ([]*model.Recipe, error) {
-	panic(fmt.Errorf("not implemented: Recipes - recipes"))
+	return db.AllRecipes(), nil
 }
 
 // Mutation returns MutationResolver implementation.

@@ -56,7 +56,7 @@ func (db *DB) SaveRecipe(input *model.NewRecipeInput) *model.Recipe {
 	}
 }
 
-func (db *DB) FindByID(ID string) *model.Dog {
+func (db *DB) FindRecipeByID(ID string) *model.Recipe {
 	ObjectID, err := primitive.ObjectIDFromHex(ID)
 	if err != nil {
 		log.Fatal(err)
@@ -65,27 +65,27 @@ func (db *DB) FindByID(ID string) *model.Dog {
 	defer cancel()
 	res := db.recipeCollection.FindOne(ctx, bson.M{"_id": ObjectID})
 
-	dog := model.Dog{}
-	res.Decode(&dog)
+	recipe := model.Recipe{}
+	res.Decode(&recipe)
 
-	return &dog
+	return &recipe
 }
 
-func (db *DB) All() []*model.Dog {
+func (db *DB) AllRecipes() []*model.Recipe {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	cur, err := db.recipeCollection.Find(ctx, bson.D{})
 	if err != nil {
 		log.Fatal(err)
 	}
-	var dogs []*model.Dog
+	var recipes []*model.Recipe
 	for cur.Next(ctx) {
-		var dog *model.Dog
-		err := cur.Decode(&dog)
+		var recipe *model.Recipe
+		err := cur.Decode(&recipe)
 		if err != nil {
 			log.Fatal(err)
 		}
-		dogs = append(dogs, dog)
+		recipes = append(recipes, recipe)
 	}
-	return dogs
+	return recipes
 }

@@ -51,6 +51,27 @@ mutation CreateRecipe{
     _id
   }
 }
+
+query GetRecipe{
+  recipe(_id:"6673ec1c3f75e1774098f227"){
+    name
+    description
+    ingredients{name quantity unit}
+    steps
+    category
+  }
+}
+
+
+query AllRecipes{
+  recipes{
+    name
+    description
+    ingredients{name quantity unit}
+    steps
+    category
+  }
+}
 ```
 
 
