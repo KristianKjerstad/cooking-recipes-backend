@@ -3,7 +3,7 @@
 package model
 
 type Dog struct {
-	ID        string `json:"_id"`
+	ID        string `json:"_id" bson:"_id"`
 	Name      string `json:"name"`
 	IsGoodBoi bool   `json:"isGoodBoi"`
 }
