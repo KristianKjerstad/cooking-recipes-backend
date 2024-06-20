@@ -13,7 +13,8 @@ import (
 )
 
 type DB struct {
-	client *mongo.Client
+	client           *mongo.Client
+	recipeCollection *mongo.Collection
 }
 
 func Connect() *DB {
@@ -22,15 +23,16 @@ func Connect() *DB {
 	if err != nil {
 		panic(err)
 	}
+	recipeCollection := client.Database("data").Collection("recipes")
 
-	return &DB{client: client}
+	return &DB{client: client, recipeCollection: recipeCollection}
 }
 
 func (db *DB) Save(input *model.NewDog) *model.Dog {
-	collection := db.client.Database("animals").Collection("dogs")
+
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	res, err := collection.InsertOne(ctx, input)
+	res, err := db.recipeCollection.InsertOne(ctx, input)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -46,10 +48,9 @@ func (db *DB) FindByID(ID string) *model.Dog {
 	if err != nil {
 		log.Fatal(err)
 	}
-	collection := db.client.Database("animals").Collection("dogs")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	res := collection.FindOne(ctx, bson.M{"_id": ObjectID})
+	res := db.recipeCollection.FindOne(ctx, bson.M{"_id": ObjectID})
 
 	dog := model.Dog{}
 	res.Decode(&dog)
@@ -58,10 +59,9 @@ func (db *DB) FindByID(ID string) *model.Dog {
 }
 
 func (db *DB) All() []*model.Dog {
-	collection := db.client.Database("animals").Collection("dogs")
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
-	cur, err := collection.Find(ctx, bson.D{})
+	cur, err := db.recipeCollection.Find(ctx, bson.D{})
 	if err != nil {
 		log.Fatal(err)
 	}
