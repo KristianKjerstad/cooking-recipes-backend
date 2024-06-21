@@ -1,6 +1,19 @@
 version: '3.8'
 
 services:
+  app:
+    build: .
+    ports:
+      - "8060:8060"
+    volumes:
+      - .:/app
+    environment:
+      - DB_HOST=mongodb
+      - DB_PASSWORD=password
+      - DB_USER=admin
+      - DB_PORT=27017
+    command: go run server.go
+
   mongodb:
     image: mongo:latest
     container_name: mongodb

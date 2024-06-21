@@ -3,7 +3,9 @@ package database
 import (
 	"context"
 	"cooking-recipes-backend/graph/model"
+	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -17,8 +19,22 @@ type DB struct {
 	recipeCollection *mongo.Collection
 }
 
+func getEnv(key, defaultValue string) string {
+	value := os.Getenv(key)
+	if value == "" {
+		return defaultValue
+	}
+	return value
+}
+
 func Connect() *DB {
-	uri := "mongodb://admin:password@localhost:27017"
+	DB_HOST := getEnv("DB_HOST", "localhost")
+	DB_PASSWORD := getEnv("DB_PASSWORD", "password")
+	DB_USER := getEnv("DB_USER", "admin")
+	DB_PORT := getEnv("DB_PORT", "27017")
+
+	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s", DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
+	fmt.Println("uri is:", uri)
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
 		panic(err)
