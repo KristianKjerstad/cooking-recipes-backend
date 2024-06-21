@@ -76,6 +76,21 @@ query AllRecipes{
 mutation delete{
   deleteRecipe(_id:"ObjectID('6673ec373f75e1774098f229')")
 }
+
+mutation updateRecipe{
+  updateRecipe(input: 
+    {
+    _id: "6673ec393f75e1774098f232"
+		name:"sdf"
+    description:"asdf"
+    category:DRINK
+      steps:["123", "2434"]
+    ingredients:[{_id:"123", name:"x", quantity:22, unit:"ml"}]
+    }
+  ){
+    name
+  }
+}
 ```
 
 

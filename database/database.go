@@ -27,6 +27,14 @@ func getEnv(key, defaultValue string) string {
 	return value
 }
 
+// derefString returns defaultValue if str is nil, otherwise returns *str
+func derefValue[T any](value *T, defaultValue T) T {
+	if value != nil {
+		return *value
+	}
+	return defaultValue
+}
+
 func Connect() *DB {
 	DB_HOST := getEnv("DB_HOST", "localhost")
 	DB_PASSWORD := getEnv("DB_PASSWORD", "password")
@@ -139,6 +147,46 @@ func (db *DB) AllRecipes() []*model.Recipe {
 		recipes = append(recipes, recipe)
 	}
 	return recipes
+}
+
+func (db *DB) UpdateRecipe(newRecipe *model.UpdateRecipeInput) (*model.Recipe, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+
+	originalRecipe := db.FindRecipeByID(newRecipe.ID)
+	if originalRecipe == nil {
+		fmt.Errorf("Could not get original recipe")
+		return nil, nil
+	}
+
+	var ingredients []*model.Ingredient = make([]*model.Ingredient, len(newRecipe.Ingredients))
+	for i, ing := range newRecipe.Ingredients {
+		ingredient := model.Ingredient{
+			ID:       ing.ID,
+			Name:     derefValue(ing.Name, originalRecipe.Ingredients[i].Name),
+			Quantity: derefValue(ing.Quantity, originalRecipe.Ingredients[i].Quantity),
+			Unit:     derefValue(ing.Unit, originalRecipe.Ingredients[i].Unit),
+		}
+		ingredients[i] = &ingredient
+	}
+
+	recipe := model.Recipe{
+		ID:          newRecipe.ID,
+		Name:        derefValue(newRecipe.Name, originalRecipe.Name),
+		Description: derefValue(&newRecipe.Description, originalRecipe.Description),
+		Category:    derefValue(newRecipe.Category, originalRecipe.Category),
+		Steps:       newRecipe.Steps,
+		Ingredients: ingredients,
+	}
+	ObjectID, err := primitive.ObjectIDFromHex(newRecipe.ID)
+	res, err := db.recipeCollection.UpdateOne(ctx, bson.M{"_id": ObjectID}, bson.M{"$set": recipe})
+	fmt.Println(res)
+	if err != nil {
+		fmt.Errorf("Failed to update recipe")
+		return nil, nil
+	}
+
+	return &recipe, nil
 }
 
 func (db *DB) DeleteRecipe(ID string) (bool, error) {
