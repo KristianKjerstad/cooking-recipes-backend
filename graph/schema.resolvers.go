@@ -23,7 +23,8 @@ func (r *mutationResolver) UpdateRecipe(ctx context.Context, input *model.Update
 
 // DeleteRecipe is the resolver for the deleteRecipe field.
 func (r *mutationResolver) DeleteRecipe(ctx context.Context, id string) (*bool, error) {
-	panic(fmt.Errorf("not implemented: DeleteRecipe - deleteRecipe"))
+	res, err := db.DeleteRecipe(id)
+	return &res, err
 }
 
 // AddIngredient is the resolver for the addIngredient field.

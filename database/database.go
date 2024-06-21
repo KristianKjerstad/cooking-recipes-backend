@@ -140,3 +140,15 @@ func (db *DB) AllRecipes() []*model.Recipe {
 	}
 	return recipes
 }
+
+func (db *DB) DeleteRecipe(ID string) (bool, error) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	defer cancel()
+	_, err := db.recipeCollection.DeleteOne(ctx, bson.M{"_id": ID})
+	if err != nil {
+		return false, nil
+	}
+
+	return true, nil
+}

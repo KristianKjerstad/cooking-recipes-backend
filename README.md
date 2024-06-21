@@ -72,6 +72,10 @@ query AllRecipes{
     category
   }
 }
+
+mutation delete{
+  deleteRecipe(_id:"ObjectID('6673ec373f75e1774098f229')")
+}
 ```
 
 
