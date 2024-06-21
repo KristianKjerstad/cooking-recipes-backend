@@ -12,7 +12,7 @@ services:
       - DB_PASSWORD=password
       - DB_USER=admin
       - DB_PORT=27017
-    command: go run server.go
+    command: air
 
   mongodb:
     image: mongo:latest

@@ -4,9 +4,11 @@ WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
 COPY . .
-# RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+
+RUN go install github.com/air-verse/air@latest
+RUN apk add build-base
 
 RUN go build -o main .
 
 EXPOSE 8060
-CMD ["go", "run", "server.go"]
+CMD ["air"]
