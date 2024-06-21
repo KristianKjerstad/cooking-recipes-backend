@@ -11,8 +11,6 @@ import (
 	"fmt"
 )
 
-var db = database.Connect()
-
 // CreateRecipe is the resolver for the createRecipe field.
 func (r *mutationResolver) CreateRecipe(ctx context.Context, input *model.NewRecipeInput) (*model.Recipe, error) {
 	return db.SaveRecipe(input), nil
@@ -60,11 +58,16 @@ func (r *queryResolver) Recipe(ctx context.Context, id *string, name *string) (*
 	}
 	fmt.Errorf("Both name and id were nil!")
 	return nil, nil
-
 }
 
 // Recipes is the resolver for the recipes field.
-func (r *queryResolver) Recipes(ctx context.Context) ([]*model.Recipe, error) {
+func (r *queryResolver) Recipes(ctx context.Context, category *model.Category) ([]*model.Recipe, error) {
+	if category != nil {
+		recipes := db.FindRecipesByCategory(*category)
+		if recipes != nil {
+			return recipes, nil
+		}
+	}
 	return db.AllRecipes(), nil
 }
 
@@ -76,3 +79,11 @@ func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
 
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
+
+// !!! WARNING !!!
+// The code below was going to be deleted when updating resolvers. It has been copied here so you have
+// one last chance to move it out of harms way if you want. There are two reasons this happens:
+//   - When renaming or deleting a resolver the old code will be put in here. You can safely delete
+//     it when you're done.
+//   - You have helper methods in this file. Move them out to keep these resolver files clean.
+var db = database.Connect()

@@ -76,5 +76,5 @@ type Mutation {
 
 type Query {
   recipe(_id: String, name: String): Recipe
-  recipes: [Recipe!]!
+  recipes(category: Category): [Recipe!]!
 }

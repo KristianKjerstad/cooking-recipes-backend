@@ -71,7 +71,7 @@ type ComplexityRoot struct {
 
 	Query struct {
 		Recipe  func(childComplexity int, id *string, name *string) int
-		Recipes func(childComplexity int) int
+		Recipes func(childComplexity int, category *model.Category) int
 	}
 
 	Recipe struct {
@@ -94,7 +94,7 @@ type MutationResolver interface {
 }
 type QueryResolver interface {
 	Recipe(ctx context.Context, id *string, name *string) (*model.Recipe, error)
-	Recipes(ctx context.Context) ([]*model.Recipe, error)
+	Recipes(ctx context.Context, category *model.Category) ([]*model.Recipe, error)
 }
 
 type executableSchema struct {
@@ -254,7 +254,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			break
 		}
 
-		return e.complexity.Query.Recipes(childComplexity), true
+		args, err := ec.field_Query_recipes_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Recipes(childComplexity, args["category"].(*model.Category)), true
 
 	case "Recipe.category":
 		if e.complexity.Recipe.Category == nil {
@@ -580,6 +585,21 @@ func (ec *executionContext) field_Query_recipe_args(ctx context.Context, rawArgs
 		}
 	}
 	args["name"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_recipes_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 *model.Category
+	if tmp, ok := rawArgs["category"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("category"))
+		arg0, err = ec.unmarshalOCategory2ᚖcookingᚑrecipesᚑbackendᚋgraphᚋmodelᚐCategory(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["category"] = arg0
 	return args, nil
 }
 
@@ -1406,7 +1426,7 @@ func (ec *executionContext) _Query_recipes(ctx context.Context, field graphql.Co
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Recipes(rctx)
+		return ec.resolvers.Query().Recipes(rctx, fc.Args["category"].(*model.Category))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1423,7 +1443,7 @@ func (ec *executionContext) _Query_recipes(ctx context.Context, field graphql.Co
 	return ec.marshalNRecipe2ᚕᚖcookingᚑrecipesᚑbackendᚋgraphᚋmodelᚐRecipeᚄ(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Query_recipes(_ context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Query_recipes(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Query",
 		Field:      field,
@@ -1446,6 +1466,17 @@ func (ec *executionContext) fieldContext_Query_recipes(_ context.Context, field 
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Recipe", field.Name)
 		},
+	}
+	defer func() {
+		if r := recover(); r != nil {
+			err = ec.Recover(ctx, r)
+			ec.Error(ctx, err)
+		}
+	}()
+	ctx = graphql.WithFieldContext(ctx, fc)
+	if fc.Args, err = ec.field_Query_recipes_args(ctx, field.ArgumentMap(ec.Variables)); err != nil {
+		ec.Error(ctx, err)
+		return fc, err
 	}
 	return fc, nil
 }
