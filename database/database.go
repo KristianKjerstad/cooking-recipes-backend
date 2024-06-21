@@ -34,7 +34,6 @@ func Connect() *DB {
 	DB_PORT := getEnv("DB_PORT", "27017")
 
 	uri := fmt.Sprintf("mongodb://%s:%s@%s:%s", DB_USER, DB_PASSWORD, DB_HOST, DB_PORT)
-	fmt.Println("**************uri is:", uri)
 	client, err := mongo.Connect(context.TODO(), options.Client().ApplyURI(uri))
 	if err != nil {
 		panic(err)

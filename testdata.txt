@@ -1,0 +1,468 @@
+mutation CreateRecipes {
+  drink1: createRecipe(input: {
+    name: "Martini",
+    description: "A classic cocktail",
+    category: DRINK,
+    steps: ["Get ingredients", "Shake with ice", "Strain into glass"],
+    ingredients: [
+      {name: "Vodka", quantity: 50, unit: "ml"},
+      {name: "Dry Vermouth", quantity: 10, unit: "ml"},
+      {name: "Olive", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  appetizer1: createRecipe(input: {
+    name: "Bruschetta",
+    description: "Grilled bread with tomatoes",
+    category: APPETIZER,
+    steps: ["Toast bread", "Mix tomatoes with garlic and basil", "Top bread with mixture"],
+    ingredients: [
+      {name: "Bread", quantity: 4, unit: "slices"},
+      {name: "Tomatoes", quantity: 100, unit: "g"},
+      {name: "Garlic", quantity: 1, unit: "clove"},
+      {name: "Basil", quantity: 5, unit: "leaves"},
+      {name: "Olive Oil", quantity: 10, unit: "ml"}
+    ]
+  }) {
+    _id
+  }
+
+  mainCourse1: createRecipe(input: {
+    name: "Spaghetti Carbonara",
+    description: "Classic Italian pasta dish",
+    category: MAIN_COURSE,
+    steps: ["Cook spaghetti", "Fry pancetta", "Mix eggs and cheese", "Combine everything"],
+    ingredients: [
+      {name: "Spaghetti", quantity: 200, unit: "g"},
+      {name: "Pancetta", quantity: 100, unit: "g"},
+      {name: "Eggs", quantity: 2, unit: "pieces"},
+      {name: "Parmesan", quantity: 50, unit: "g"},
+      {name: "Black Pepper", quantity: 5, unit: "g"}
+    ]
+  }) {
+    _id
+  }
+
+  dessert1: createRecipe(input: {
+    name: "Chocolate Cake",
+    description: "Rich and moist chocolate cake",
+    category: DESSERT,
+    steps: ["Mix dry ingredients", "Mix wet ingredients", "Combine and bake"],
+    ingredients: [
+      {name: "Flour", quantity: 200, unit: "g"},
+      {name: "Cocoa Powder", quantity: 50, unit: "g"},
+      {name: "Sugar", quantity: 150, unit: "g"},
+      {name: "Eggs", quantity: 2, unit: "pieces"},
+      {name: "Butter", quantity: 100, unit: "g"},
+      {name: "Milk", quantity: 200, unit: "ml"}
+    ]
+  }) {
+    _id
+  }
+
+  drink2: createRecipe(input: {
+    name: "Margarita",
+    description: "A refreshing cocktail",
+    category: DRINK,
+    steps: ["Get ingredients", "Shake with ice", "Strain into glass"],
+    ingredients: [
+      {name: "Tequila", quantity: 50, unit: "ml"},
+      {name: "Lime Juice", quantity: 20, unit: "ml"},
+      {name: "Triple Sec", quantity: 20, unit: "ml"}
+    ]
+  }) {
+    _id
+  }
+
+  appetizer2: createRecipe(input: {
+    name: "Stuffed Mushrooms",
+    description: "Mushrooms stuffed with cheese and herbs",
+    category: APPETIZER,
+    steps: ["Clean mushrooms", "Mix filling", "Stuff mushrooms", "Bake"],
+    ingredients: [
+      {name: "Mushrooms", quantity: 12, unit: "pieces"},
+      {name: "Cream Cheese", quantity: 100, unit: "g"},
+      {name: "Parmesan", quantity: 50, unit: "g"},
+      {name: "Garlic", quantity: 1, unit: "clove"},
+      {name: "Parsley", quantity: 10, unit: "g"}
+    ]
+  }) {
+    _id
+  }
+
+  mainCourse2: createRecipe(input: {
+    name: "Chicken Curry",
+    description: "Spicy and flavorful chicken curry",
+    category: MAIN_COURSE,
+    steps: ["Cook chicken", "Prepare curry sauce", "Combine and simmer"],
+    ingredients: [
+      {name: "Chicken", quantity: 500, unit: "g"},
+      {name: "Onions", quantity: 2, unit: "pieces"},
+      {name: "Tomatoes", quantity: 3, unit: "pieces"},
+      {name: "Curry Powder", quantity: 20, unit: "g"},
+      {name: "Coconut Milk", quantity: 400, unit: "ml"}
+    ]
+  }) {
+    _id
+  }
+
+  dessert2: createRecipe(input: {
+    name: "Lemon Tart",
+    description: "Tangy and sweet lemon tart",
+    category: DESSERT,
+    steps: ["Prepare crust", "Make lemon filling", "Bake"],
+    ingredients: [
+      {name: "Flour", quantity: 200, unit: "g"},
+      {name: "Butter", quantity: 100, unit: "g"},
+      {name: "Sugar", quantity: 150, unit: "g"},
+      {name: "Lemons", quantity: 3, unit: "pieces"},
+      {name: "Eggs", quantity: 3, unit: "pieces"}
+    ]
+  }) {
+    _id
+  }
+
+drink3: createRecipe(input: {
+    name: "Mojito",
+    description: "A refreshing minty cocktail",
+    category: DRINK,
+    steps: ["Muddle mint leaves with sugar and lime juice", "Add rum", "Top with soda water"],
+    ingredients: [
+      {name: "White Rum", quantity: 50, unit: "ml"},
+      {name: "Mint Leaves", quantity: 10, unit: "leaves"},
+      {name: "Sugar", quantity: 10, unit: "g"},
+      {name: "Lime Juice", quantity: 20, unit: "ml"},
+      {name: "Soda Water", quantity: 100, unit: "ml"}
+    ]
+  }) {
+    _id
+  }
+
+  appetizer3: createRecipe(input: {
+    name: "Caprese Salad",
+    description: "Tomato and mozzarella salad",
+    category: APPETIZER,
+    steps: ["Slice tomatoes and mozzarella", "Arrange on a plate", "Drizzle with olive oil and balsamic vinegar", "Garnish with basil"],
+    ingredients: [
+      {name: "Tomatoes", quantity: 200, unit: "g"},
+      {name: "Mozzarella", quantity: 150, unit: "g"},
+      {name: "Olive Oil", quantity: 20, unit: "ml"},
+      {name: "Balsamic Vinegar", quantity: 10, unit: "ml"},
+      {name: "Basil", quantity: 10, unit: "leaves"}
+    ]
+  }) {
+    _id
+  }
+
+  mainCourse3: createRecipe(input: {
+    name: "Beef Stew",
+    description: "Hearty and savory beef stew",
+    category: MAIN_COURSE,
+    steps: ["Brown the beef", "Add vegetables and broth", "Simmer until tender"],
+    ingredients: [
+      {name: "Beef", quantity: 500, unit: "g"},
+      {name: "Carrots", quantity: 3, unit: "pieces"},
+      {name: "Potatoes", quantity: 3, unit: "pieces"},
+      {name: "Onion", quantity: 1, unit: "piece"},
+      {name: "Beef Broth", quantity: 500, unit: "ml"},
+      {name: "Garlic", quantity: 2, unit: "cloves"}
+    ]
+  }) {
+    _id
+  }
+
+  dessert3: createRecipe(input: {
+    name: "Pavlova",
+    description: "Light meringue dessert with fruit",
+    category: DESSERT,
+    steps: ["Beat egg whites and sugar until stiff", "Bake meringue", "Top with whipped cream and fruit"],
+    ingredients: [
+      {name: "Egg Whites", quantity: 4, unit: "pieces"},
+      {name: "Sugar", quantity: 200, unit: "g"},
+      {name: "Whipped Cream", quantity: 200, unit: "ml"},
+      {name: "Mixed Berries", quantity: 150, unit: "g"}
+    ]
+  }) {
+    _id
+  }
+
+  drink4: createRecipe(input: {
+    name: "Pina Colada",
+    description: "Tropical pineapple and coconut cocktail",
+    category: DRINK,
+    steps: ["Blend all ingredients with ice", "Serve in a chilled glass"],
+    ingredients: [
+      {name: "White Rum", quantity: 50, unit: "ml"},
+      {name: "Coconut Cream", quantity: 50, unit: "ml"},
+      {name: "Pineapple Juice", quantity: 100, unit: "ml"},
+      {name: "Pineapple Slice", quantity: 1, unit: "piece"},
+      {name: "Cherry", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  appetizer4: createRecipe(input: {
+    name: "Deviled Eggs",
+    description: "Hard-boiled eggs filled with a seasoned yolk mixture",
+    category: APPETIZER,
+    steps: ["Hard-boil the eggs", "Mix yolks with seasoning", "Fill egg whites with yolk mixture"],
+    ingredients: [
+      {name: "Eggs", quantity: 6, unit: "pieces"},
+      {name: "Mayonnaise", quantity: 50, unit: "g"},
+      {name: "Mustard", quantity: 10, unit: "g"},
+      {name: "Paprika", quantity: 2, unit: "g"},
+      {name: "Salt", quantity: 2, unit: "g"},
+      {name: "Pepper", quantity: 2, unit: "g"}
+    ]
+  }) {
+    _id
+  }
+
+  mainCourse4: createRecipe(input: {
+    name: "Chicken Alfredo",
+    description: "Creamy pasta with chicken",
+    category: MAIN_COURSE,
+    steps: ["Cook pasta", "Prepare Alfredo sauce", "Combine pasta and sauce with chicken"],
+    ingredients: [
+      {name: "Chicken Breast", quantity: 200, unit: "g"},
+      {name: "Fettuccine", quantity: 200, unit: "g"},
+      {name: "Heavy Cream", quantity: 200, unit: "ml"},
+      {name: "Parmesan", quantity: 50, unit: "g"},
+      {name: "Garlic", quantity: 2, unit: "cloves"},
+      {name: "Butter", quantity: 50, unit: "g"}
+    ]
+  }) {
+    _id
+  }
+
+  dessert4: createRecipe(input: {
+    name: "Tiramisu",
+    description: "Classic Italian coffee-flavored dessert",
+    category: DESSERT,
+    steps: ["Prepare mascarpone mixture", "Layer with coffee-soaked ladyfingers", "Chill and serve"],
+    ingredients: [
+      {name: "Ladyfingers", quantity: 200, unit: "g"},
+      {name: "Mascarpone", quantity: 250, unit: "g"},
+      {name: "Eggs", quantity: 3, unit: "pieces"},
+      {name: "Sugar", quantity: 100, unit: "g"},
+      {name: "Coffee", quantity: 200, unit: "ml"},
+      {name: "Cocoa Powder", quantity: 10, unit: "g"}
+    ]
+  }) {
+    _id
+  }
+
+    drink5: createRecipe(input: {
+    name: "Old Fashioned",
+    description: "A classic whiskey cocktail",
+    category: DRINK,
+    steps: ["Muddle sugar and bitters", "Add whiskey and ice", "Stir and garnish"],
+    ingredients: [
+      {name: "Whiskey", quantity: 60, unit: "ml"},
+      {name: "Sugar Cube", quantity: 1, unit: "piece"},
+      {name: "Angostura Bitters", quantity: 2, unit: "dashes"},
+      {name: "Orange Peel", quantity: 1, unit: "piece"},
+      {name: "Cherry", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink6: createRecipe(input: {
+    name: "Negroni",
+    description: "A bitter Italian cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a glass with ice", "Stir and garnish"],
+    ingredients: [
+      {name: "Gin", quantity: 30, unit: "ml"},
+      {name: "Campari", quantity: 30, unit: "ml"},
+      {name: "Sweet Vermouth", quantity: 30, unit: "ml"},
+      {name: "Orange Peel", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink7: createRecipe(input: {
+    name: "Whiskey Sour",
+    description: "A tart and sweet whiskey cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a shaker with ice", "Shake and strain into a glass", "Garnish"],
+    ingredients: [
+      {name: "Whiskey", quantity: 50, unit: "ml"},
+      {name: "Lemon Juice", quantity: 20, unit: "ml"},
+      {name: "Simple Syrup", quantity: 20, unit: "ml"},
+      {name: "Cherry", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink8: createRecipe(input: {
+    name: "Bloody Mary",
+    description: "A savory tomato-based cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a shaker with ice", "Shake and strain into a glass", "Garnish"],
+    ingredients: [
+      {name: "Vodka", quantity: 50, unit: "ml"},
+      {name: "Tomato Juice", quantity: 100, unit: "ml"},
+      {name: "Lemon Juice", quantity: 10, unit: "ml"},
+      {name: "Worcestershire Sauce", quantity: 2, unit: "dashes"},
+      {name: "Tabasco", quantity: 2, unit: "dashes"},
+      {name: "Celery Salt", quantity: 1, unit: "pinch"},
+      {name: "Black Pepper", quantity: 1, unit: "pinch"},
+      {name: "Celery Stick", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink9: createRecipe(input: {
+    name: "Gin and Tonic",
+    description: "A refreshing gin and tonic cocktail",
+    category: DRINK,
+    steps: ["Fill glass with ice", "Add gin and tonic water", "Stir and garnish"],
+    ingredients: [
+      {name: "Gin", quantity: 50, unit: "ml"},
+      {name: "Tonic Water", quantity: 100, unit: "ml"},
+      {name: "Lime Wedge", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink10: createRecipe(input: {
+    name: "Cosmopolitan",
+    description: "A chic vodka cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a shaker with ice", "Shake and strain into a glass", "Garnish"],
+    ingredients: [
+      {name: "Vodka", quantity: 40, unit: "ml"},
+      {name: "Triple Sec", quantity: 15, unit: "ml"},
+      {name: "Cranberry Juice", quantity: 30, unit: "ml"},
+      {name: "Lime Juice", quantity: 10, unit: "ml"},
+      {name: "Lime Wedge", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink11: createRecipe(input: {
+    name: "Mai Tai",
+    description: "A tropical rum cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a shaker with ice", "Shake and strain into a glass", "Garnish"],
+    ingredients: [
+      {name: "White Rum", quantity: 30, unit: "ml"},
+      {name: "Dark Rum", quantity: 30, unit: "ml"},
+      {name: "Orange Curaçao", quantity: 15, unit: "ml"},
+      {name: "Lime Juice", quantity: 10, unit: "ml"},
+      {name: "Orgeat Syrup", quantity: 10, unit: "ml"},
+      {name: "Mint Sprig", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink12: createRecipe(input: {
+    name: "Manhattan",
+    description: "A classic whiskey and vermouth cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a glass with ice", "Stir and strain into a glass", "Garnish"],
+    ingredients: [
+      {name: "Whiskey", quantity: 60, unit: "ml"},
+      {name: "Sweet Vermouth", quantity: 30, unit: "ml"},
+      {name: "Angostura Bitters", quantity: 2, unit: "dashes"},
+      {name: "Cherry", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink13: createRecipe(input: {
+    name: "Daiquiri",
+    description: "A simple and refreshing rum cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a shaker with ice", "Shake and strain into a glass", "Garnish"],
+    ingredients: [
+      {name: "White Rum", quantity: 50, unit: "ml"},
+      {name: "Lime Juice", quantity: 25, unit: "ml"},
+      {name: "Simple Syrup", quantity: 15, unit: "ml"},
+      {name: "Lime Wheel", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink14: createRecipe(input: {
+    name: "Moscow Mule",
+    description: "A spicy and refreshing vodka cocktail",
+    category: DRINK,
+    steps: ["Fill glass with ice", "Add vodka and ginger beer", "Stir and garnish"],
+    ingredients: [
+      {name: "Vodka", quantity: 50, unit: "ml"},
+      {name: "Ginger Beer", quantity: 100, unit: "ml"},
+      {name: "Lime Juice", quantity: 10, unit: "ml"},
+      {name: "Lime Wedge", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+  drink15: createRecipe(input: {
+    name: "Tom Collins",
+    description: "A fizzy gin cocktail",
+    category: DRINK,
+    steps: ["Combine ingredients in a glass with ice", "Stir and top with soda water", "Garnish"],
+    ingredients: [
+      {name: "Gin", quantity: 50, unit: "ml"},
+      {name: "Lemon Juice", quantity: 25, unit: "ml"},
+      {name: "Simple Syrup", quantity: 20, unit: "ml"},
+      {name: "Soda Water", quantity: 100, unit: "ml"},
+      {name: "Lemon Wheel", quantity: 1, unit: "piece"}
+    ]
+  }) {
+    _id
+  }
+
+    createDrink: createRecipe(input:{
+    name: "Margarita",
+    description:"A classic cocktail",
+    category:DRINK,
+    steps: ["Mix tequila, lime juice, and Cointreau", "Shake well", "Serve"],
+    ingredients:[{name:"tequila", quantity:50, unit:"ml"},{name:"lime juice", quantity:20, unit:"ml"}, {name:"Cointreau", quantity:20, unit:"ml"}]
+  }) {
+    _id
+  }
+  createAppetizer: createRecipe(input:{
+    name: "Bruschetta",
+    description:"Italian appetizer",
+    category:APPETIZER,
+    steps: ["Toast bread", "Top with tomatoes and basil", "Serve"],
+    ingredients:[{name:"bread", quantity:4, unit:"slices"},{name:"tomatoes", quantity:2, unit:"whole"}, {name:"basil", quantity:10, unit:"leaves"}]
+  }) {
+    _id
+  }
+  createMainCourse: createRecipe(input:{
+    name: "Spaghetti Bolognese",
+    description:"Italian main course",
+    category:MAIN_COURSE,
+    steps: ["Cook spaghetti", "Prepare Bolognese sauce", "Serve"],
+    ingredients:[{name:"spaghetti", quantity:200, unit:"g"},{name:"minced meat", quantity:200, unit:"g"}, {name:"tomato sauce", quantity:200, unit:"ml"}]
+  }) {
+    _id
+  }
+  createDessert: createRecipe(input:{
+    name: "Cheesecake",
+    description:"Delicious dessert",
+    category:DESSERT,
+    steps: ["Prepare crust", "Prepare filling", "Bake", "Serve"],
+    ingredients:[{name:"cream cheese", quantity:500, unit:"g"},{name:"sugar", quantity:200, unit:"g"}, {name:"eggs", quantity:3, unit:"whole"}]
+  }) {
+    _id
+  }
+
+}
